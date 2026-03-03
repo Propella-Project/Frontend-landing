@@ -154,7 +154,7 @@ function AppContent() {
                       <span className="font-bold">PROPELLA</span>
                     </div>
                     <p className="text-sm text-gray-500">
-                      © 2025 PROPELLA. All rights reserved.
+                      © 2026 PROPELLA. All rights reserved.
                     </p>
                     <div className="flex items-center gap-6">
                       <a
