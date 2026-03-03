@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 20% 8%;
+    --foreground: 0 0% 100%;
+    --card: 240 15% 12%;
+    --card-foreground: 0 0% 100%;
+    --popover: 240 15% 12%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 263 70% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 72 100% 50%;
+    --secondary-foreground: 240 20% 8%;
+    --muted: 240 15% 18%;
+    --muted-foreground: 240 10% 60%;
+    --accent: 72 100% 50%;
+    --accent-foreground: 240 20% 8%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 15% 20%;
+    --input: 240 15% 20%;
+    --ring: 263 70% 58%;
+    --radius: 0.75rem;
+    
+    /* PROPELLA Brand Colors */
+    --propella-purple: #8B5CF6;
+    --propella-lime: #CCFF00;
+    --propella-dark: #0F0C15;
+    --propella-surface: #1A1625;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-[#0F0C15] text-white antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #0F0C15;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #1A1625;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2D2640;
+  }
+
+  /* Gradient Text - Purple to Lime */
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#8B5CF6] to-[#CCFF00] bg-clip-text text-transparent;
+  }
+
+  /* Glow Effects */
+  .glow-purple {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+  }
+
+  .glow-lime {
+    box-shadow: 0 0 40px rgba(204, 255, 0, 0.3);
+  }
+
+  /* Button Glow */
+  .btn-glow {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+  }
+
+  /* Glass Card */
+  .glass-card {
+    @apply bg-[#1A1625]/80 backdrop-blur-xl border border-white/10;
+  }
+
+  /* Gradient Border */
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #8B5CF6, #CCFF00);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  /* Rocket Icon Gradient */
+  .rocket-gradient {
+    background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 50%, #CCFF00 100%);
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Text truncation */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Tabular numbers for counters */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Selection Color */
+::selection {
+  background: rgba(139, 92, 246, 0.3);
+  color: white;
+}
+
+/* Focus Ring */
+*:focus-visible {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
