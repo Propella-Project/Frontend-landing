@@ -1,5 +1,5 @@
 // PROPELLA API Client
-const API_BASE_URL = ""; // Always empty – use relative URLs
+const API_BASE_URL = ""; // Use relative URLs - Vercel proxies to backend
 
 interface ApiResponse<T = unknown> {
   success: boolean;
@@ -30,6 +30,21 @@ interface ExamProfileData {
   phone?: string;
 }
 
+// List of endpoints that don't require authentication
+const PUBLIC_ENDPOINTS = [
+  "/api/accounts/register/",
+  "/api/accounts/token/",
+  "/api/accounts/token/refresh/",
+  "/api/accounts/verify-email/",
+  "/api/accounts/resend-code/",
+];
+
+function isPublicEndpoint(endpoint: string): boolean {
+  return PUBLIC_ENDPOINTS.some((publicEndpoint) =>
+    endpoint.includes(publicEndpoint),
+  );
+}
+
 async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {},
@@ -40,7 +55,10 @@ async function apiFetch<T>(
     "Content-Type": "application/json",
     Accept: "application/json",
   };
-  if (token) {
+
+  // Only add authorization header for protected endpoints
+  // and only if a valid token exists
+  if (token && !isPublicEndpoint(endpoint)) {
     headers["Authorization"] = `Bearer ${token}`;
   }
 
@@ -111,6 +129,30 @@ export async function refreshToken(refresh: string) {
   });
 }
 
+// Generic POST request helper (if needed for custom endpoints)
+export async function postData<T>(endpoint: string, data: unknown) {
+  return apiFetch<T>(endpoint, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+// Generic PUT request helper
+export async function putData<T>(endpoint: string, data: unknown) {
+  return apiFetch<T>(endpoint, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
+// Generic PATCH request helper
+export async function patchData<T>(endpoint: string, data: unknown) {
+  return apiFetch<T>(endpoint, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
+
 // Registration & Verification
 export async function registerUser(data: RegisterData) {
   return apiFetch("/api/accounts/register/", {
@@ -135,7 +177,7 @@ export async function resendCode(email: string) {
 
 // User management (authenticated)
 export async function getAllUsers() {
-  return apiFetch("/api/accounts/all-users/", { method: "GET" });
+  return apiFetch("/api/accounts/all-users/", { method: "POST" }); // POST as you specified
 }
 
 export async function editUser(userId: number, data: any) {
