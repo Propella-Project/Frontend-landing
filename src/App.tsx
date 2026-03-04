@@ -3,7 +3,6 @@ import {
   Routes,
   Route,
   useSearchParams,
-  // useNavigate,
 } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
