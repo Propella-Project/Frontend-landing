@@ -490,7 +490,10 @@ export function WaitlistModal({
                   Already have an account?{" "}
                   <button
                     type="button"
-                    onClick={onLoginClick}
+                    onClick={() => {
+                      onClose();
+                      window.location.href = "/login";
+                    }}
                     className="text-[#8B5CF6] hover:text-[#A78BFA] underline"
                   >
                     Login
